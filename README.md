@@ -9,6 +9,7 @@ Welcome to the Golf-Klubben app! The purpose of this application is to allow the
 - **Score Tracking:** Easily record your golf scores for each round. 
 - **Hole-by-Hole Stats:** Analyze your performance on a per-hole basis, allowing you to identify strengths and weaknesses.
 - **Averages and Trends:** Keep track of your overall game averages, helping you set and achieve personal improvement goals.
+- **SQLite Database:** Golf-Klubben käyttää SQLite-tietokantaa tallentamaan pelaajien pelikierroksia ja tuloksia. Tämä mahdollistaa pelitulosten tallentamisen ja niiden myöhemmän tarkastelun.
 
 
 ## How To Use
