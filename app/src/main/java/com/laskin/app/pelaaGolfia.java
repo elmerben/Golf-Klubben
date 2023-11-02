@@ -167,40 +167,6 @@ public class pelaaGolfia extends Activity {
         lyontiLaskuri.setText("");
 
 
-//
-// String tiedostonimi = "tulokset.txt";
-// String kansioNimi = "Data";
-//
-// File kansio = new File(getFilesDir(), kansioNimi);
-// if (!kansio.exists()) {
-//     kansio.mkdir();
-// }
-// File tiedosto = new File(kansio, tiedostonimi);
-//
-//
-//
-// FileOutputStream fos = new FileOutputStream(tiedosto, true);
-// OutputStreamWriter kirjoittaja = new OutputStreamWriter(fos);
-//
-//
-// for (int i = 0; i < parTulokset.length; i++) {
-//     String rivi = "Väylä " + (i + 1) + ": Par " + parTulokset[i] + ", Lyönnit " + lyonnitVaylat[i].getText().toString() + "\n";
-//     kirjoittaja.write(rivi);
-// }
-//
-// kirjoittaja.close();
-// fos.close();
-//
-// String tallennusPaikka = tiedosto.getAbsolutePath();
-//
-// Log.d("TiedostonPolku", "Tiedosto tallennettu osoitteeseen: " + tallennusPaikka);
-// // Toast.makeText(this, "Tiedot tallennettu onnistuneesti", Toast.LENGTH_SHORT).show();
-// Toast.makeText(this, "Tiedosto tallennettu: " + tallennusPaikka, Toast.LENGTH_SHORT).show();        }catch(IOException e){
-//     e.printStackTrace();
-//     Toast.makeText(this, "Tallennus epäonnistui", Toast.LENGTH_SHORT).show();
-// }
-
-
 
     }
 

@@ -38,6 +38,7 @@ public class kierrosTarkastelu extends Activity {
     private Button painike;
 
     private Boolean peruutaKaynnissa = false;
+    ArrayAdapter pelaajaArrayAdapter;
 
 
 
@@ -58,15 +59,6 @@ public class kierrosTarkastelu extends Activity {
             }
         });
 
-
-
-
-
-
-       // listaaKierrokset();
-
-
-
     }
 
     private void handlePalaa() {
@@ -78,7 +70,7 @@ public class kierrosTarkastelu extends Activity {
     public void kierrosLista(){
         DataBaseHelper dataBaseHelper = new DataBaseHelper((kierrosTarkastelu.this));
         List<tulosModel> kaikki = dataBaseHelper.listaaKaikki();
-        ArrayAdapter pelaajaArrayAdapter = new ArrayAdapter<tulosModel>(kierrosTarkastelu.this, android.R.layout.simple_list_item_1, kaikki);
+        pelaajaArrayAdapter = new ArrayAdapter<tulosModel>(kierrosTarkastelu.this, android.R.layout.simple_list_item_1, kaikki);
         listView.setAdapter(pelaajaArrayAdapter);
 
     }
