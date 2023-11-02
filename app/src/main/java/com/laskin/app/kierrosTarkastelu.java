@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.Manifest;
@@ -21,6 +24,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+
+import android.widget.Button;
 
 
 public class kierrosTarkastelu extends Activity {
@@ -28,7 +34,10 @@ public class kierrosTarkastelu extends Activity {
 
     private Switch rulla;
     private TextView textView;
+    private ListView listView;
+    private Button painike;
 
+    private Boolean peruutaKaynnissa = false;
 
 
 
@@ -36,17 +45,41 @@ public class kierrosTarkastelu extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vanhat_kierrokset);
-
         //rulla = findViewById(R.id.rulla);
         //textView = findViewById(R.id.kierrosTahan);
+        listView = findViewById(R.id.kierrosLista);
+        painike = findViewById(R.id.painikeKierros);
+        kierrosLista();
+
+        painike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handlePalaa();
+            }
+        });
 
 
 
 
 
-        listaaKierrokset();
+
+       // listaaKierrokset();
 
 
+
+    }
+
+    private void handlePalaa() {
+        if (!peruutaKaynnissa) {
+            peruutaKaynnissa = true;
+        }
+        finish();
+    }
+    public void kierrosLista(){
+        DataBaseHelper dataBaseHelper = new DataBaseHelper((kierrosTarkastelu.this));
+        List<tulosModel> kaikki = dataBaseHelper.listaaKaikki();
+        ArrayAdapter pelaajaArrayAdapter = new ArrayAdapter<tulosModel>(kierrosTarkastelu.this, android.R.layout.simple_list_item_1, kaikki);
+        listView.setAdapter(pelaajaArrayAdapter);
 
     }
 

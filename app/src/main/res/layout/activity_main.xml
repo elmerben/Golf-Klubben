@@ -6,13 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="562dp"
-        android:layout_height="831dp"
-        app:srcCompat="@drawable/taustakuva1"
-        tools:layout_editor_absoluteX="-146dp"
-        tools:layout_editor_absoluteY="-50dp" />
+
 
     <TextView
         android:id="@+id/textView"

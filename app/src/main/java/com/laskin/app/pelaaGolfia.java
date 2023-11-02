@@ -33,6 +33,8 @@ public class pelaaGolfia extends Activity {
     private int lopullinenPar = 0;
     private int kierrosID = 0;
 
+    private boolean peruutaKaynnissa = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +68,20 @@ public class pelaaGolfia extends Activity {
             });
         }
 
+        peruuta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handlePeruuta();
+            }
+        });
+
         Button tallennaPainike = findViewById(R.id.tallenna);
         tallennaPainike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 handleTallenna();
             }
+
         });
 
 
@@ -108,6 +118,14 @@ public class pelaaGolfia extends Activity {
         }
         lyontiLaskuri.setText(" " + lyonnitYhteensa);
 
+    }
+
+
+    private void handlePeruuta() {
+        if (!peruutaKaynnissa) {
+            peruutaKaynnissa = true;
+        }
+        finish();
     }
 
     private void handleTallenna() {
@@ -185,6 +203,8 @@ public class pelaaGolfia extends Activity {
 
 
     }
+
+
 
 }
 

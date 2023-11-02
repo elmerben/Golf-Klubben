@@ -2,8 +2,12 @@ package com.laskin.app;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 
@@ -55,6 +59,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
 
         }
+
+    }
+    public List<tulosModel> listaaKaikki() {
+        List<tulosModel> palautaLista = new ArrayList<>();
+        String queryString = "SELECT * FROM " + KIERROS_TULOS;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int kierrosID = cursor.getInt(0);
+                int lyonnit1 = cursor.getInt(1);
+                int lyonnit2 = cursor.getInt(2);
+                int lyonnit3 = cursor.getInt(3);
+                int parTulos = cursor.getInt(4);
+                int kokonaisTulos = cursor.getInt(5);
+
+                tulosModel uusiTulos = new tulosModel(kierrosID, lyonnit1, lyonnit2, lyonnit3, parTulos, kokonaisTulos);
+                palautaLista.add(uusiTulos);
+            } while (cursor.moveToNext());
+        }
+        else {
+
+        }
+        cursor.close();
+        db.close();
+
+        return palautaLista;
 
     }
 
