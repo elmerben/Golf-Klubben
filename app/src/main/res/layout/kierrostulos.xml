@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#D88A8A">
+    android:background="@drawable/taustakuva2">
+
 
 
     <TextView
@@ -49,7 +50,7 @@
         android:layout_height="39dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:background="#FFFFFF"
+        android:background="#DAD3D3"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/vayla2"
@@ -61,7 +62,7 @@
         android:layout_height="42dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="46dp"
-        android:background="#FFFFFF"
+        android:background="#DAD3D3"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/vayla1"
@@ -73,7 +74,7 @@
         android:layout_height="39dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="21dp"
-        android:background="#FFFFFF"
+        android:background="#DAD3D3"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/vayla3"

@@ -20,20 +20,22 @@ import java.io.OutputStreamWriter;
 
 public class pelaaGolfia extends Activity {
 
-    private Button tallenna;
+    private Button tallenna; //Tallennusnappula
 
-    private Button peruuta;
+    private Button peruuta; // Peruutusnappula
 
-    private TextView parLaskuri;
-    private TextView lyontiLaskuri;
+    private TextView parLaskuri; // Kenttä, johon tulee par-tulos
+    private TextView lyontiLaskuri; // Kenttä kokonaislyönneille
 
-    private int[] parTulokset = {5, 3, 4};
-    private EditText[] lyonnitVaylat = new EditText[3];
-    private EditText[] parVaylat = new EditText[3];
-    private int lopullinenPar = 0;
-    private int kierrosID = 0;
+    private int[] parTulokset = {5, 3, 4}; // Jokaiselle väylälle asetetut PAR-tulokset
+    private EditText[] lyonnitVaylat = new EditText[3]; // Kentät lyöntien kirjaamiselle
+    private EditText[] parVaylat = new EditText[3]; // Kentät par-tulosten kirjaamiselle
+    private int lopullinenPar = 0; // Kokonais-par-tulos
+    private int kierrosID = 0; // Kierroksen tunnusnumero
 
-    private boolean peruutaKaynnissa = false;
+    private boolean peruutaKaynnissa = false; // Peruutuspainikkeen tilan seuranta.
+
+    private int kenttaParTulos = kenttaParTulos(parTulokset);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,13 @@ public class pelaaGolfia extends Activity {
 
     }
 
+    /**
+     * Päivittää aktiivisesti näytettävät tulokset
+     * lyöntien muokkauksen yhteydessä
+     * @param luku - Muokattu kenttä
+     * @param luku2 - Muutoksen alkukohta
+     * @param luku3 - Muutoksen pituus
+     */
     private void paivitaTulokset(int luku, int luku2, int luku3) {
         int lyonnitYhteensa = 0;
         int parYhteensa = 0;
@@ -120,7 +129,19 @@ public class pelaaGolfia extends Activity {
 
     }
 
+    private int kenttaParTulos(int[] parTulokset){
+        int kentanPar = 0;
+        for (int luku: parTulokset) {
+            kentanPar += luku;
 
+        }
+        return kentanPar;
+
+    }
+
+    /**
+     * Käsittelee tapahtuman, kun käyttäjä painaa "Peruuta".
+     */
     private void handlePeruuta() {
         if (!peruutaKaynnissa) {
             peruutaKaynnissa = true;
@@ -128,6 +149,9 @@ public class pelaaGolfia extends Activity {
         finish();
     }
 
+    /**
+     * Käsittelee tapahtuman käyttäjän painaessa "Tallenna".
+     */
     private void handleTallenna() {
 
 
@@ -140,8 +164,9 @@ public class pelaaGolfia extends Activity {
             int lyonnit2 = Integer.parseInt(lyonnitVaylat[1].getText().toString());
             int lyonnit3 = Integer.parseInt(lyonnitVaylat[2].getText().toString());
 
-            int par = lopullinenPar;
+
             int lyonnit = lyonnit1 + lyonnit2 + lyonnit3;
+            int par = lyonnit - kenttaParTulos;
 
             TulosModel = new tulosModel(lyonnit1, lyonnit2, lyonnit3, par, lyonnit, kierrosID);
             Toast.makeText(this, TulosModel.toString(), Toast.LENGTH_LONG).show();
@@ -158,7 +183,7 @@ public class pelaaGolfia extends Activity {
 
         boolean success = dataBaseHelper.addOne(TulosModel);
 
-        Toast.makeText(pelaaGolfia.this, "Success= " + success, Toast.LENGTH_LONG).show();
+        //Toast.makeText(pelaaGolfia.this, "Success= " + success, Toast.LENGTH_SHORT).show();
 
         for (EditText editText : lyonnitVaylat) {
             editText.setText("");

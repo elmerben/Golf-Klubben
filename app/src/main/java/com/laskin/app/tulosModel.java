@@ -18,18 +18,30 @@ public class tulosModel {
        // this.dataBaseHelper = dataBaseHelper;
     }
 
-
+    /**
+     * TÄMÄ JÄI KORJATTAVAKSI KATSO ETTÄ TULOSTUS TULEE OIKEIN
+     * TÄÄLLÄ JA DATABASEHELPERISSÄ!!
+     * @return
+     */
     @Override
     public String toString() {
-        return "tulosModel{" +
-                "vayla1=" + vayla1 +
-                ", vayla2=" + vayla2 +
-                ", vayla3=" + vayla3 +
-                ", tulosPariin=" + tulosPariin +
-                ", lyonnitYht=" + lyonnitYht +
-                ", kierrosID=" + kierrosID +
-                '}';
+        return "Väylä 1: " + vayla1 +
+                " Väylä 2: " + vayla2 +
+                " Väylä 3: " + vayla3 +
+                ": Par " + tulosPariin +
+                ", Lyönnit " + lyonnitYht;
     }
+
+
+//        return "tulosModel{" +
+//                "vayla1=" + vayla1 +
+//                ", vayla2=" + vayla2 +
+//                ", vayla3=" + vayla3 +
+//                ", tulosPariin=" + tulosPariin +
+//                ", lyonnitYht=" + lyonnitYht +
+//                ", kierrosID=" + kierrosID +
+//                '}';
+//    }
 
     public tulosModel() {
     }

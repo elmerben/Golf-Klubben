@@ -34,10 +34,10 @@ public class kierrosTarkastelu extends Activity {
 
     private Switch rulla;
     private TextView textView;
-    private ListView listView;
-    private Button painike;
+    private ListView listView; // Listanäkymä kierroksille
+    private Button painike; // Palaa-näppäin, jotta käyttäjä pääsee takaisin
 
-    private Boolean peruutaKaynnissa = false;
+    private Boolean peruutaKaynnissa = false; //Palaa-painikkeen tilan seuranta
     ArrayAdapter pelaajaArrayAdapter;
 
 
@@ -46,8 +46,6 @@ public class kierrosTarkastelu extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vanhat_kierrokset);
-        //rulla = findViewById(R.id.rulla);
-        //textView = findViewById(R.id.kierrosTahan);
         listView = findViewById(R.id.kierrosLista);
         painike = findViewById(R.id.painikeKierros);
         kierrosLista();
@@ -61,12 +59,20 @@ public class kierrosTarkastelu extends Activity {
 
     }
 
+
+    /**
+     * Käsittelee "Palaa"-painikkeen toiminnallisuuden
+     */
     private void handlePalaa() {
         if (!peruutaKaynnissa) {
             peruutaKaynnissa = true;
         }
         finish();
     }
+
+    /**
+     * Näyttää pelatut kierrokset listana.
+     */
     public void kierrosLista(){
         DataBaseHelper dataBaseHelper = new DataBaseHelper((kierrosTarkastelu.this));
         List<tulosModel> kaikki = dataBaseHelper.listaaKaikki();
@@ -74,31 +80,6 @@ public class kierrosTarkastelu extends Activity {
         listView.setAdapter(pelaajaArrayAdapter);
 
     }
-
-    public void listaaKierrokset() {
-
-        String tiedostonimi = "tulokset.txt";
-
-
-
-        try {
-            FileInputStream fis = openFileInput(tiedostonimi);
-            BufferedReader br = new BufferedReader((new InputStreamReader(fis)));
-            String line;
-            StringBuilder content = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                content.append(line).append(("\n"));
-            }
-            br.close();
-            fis.close();
-            textView.setText(content.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        }
-
-
 
 
 
