@@ -19,9 +19,8 @@ public class tulosModel {
     }
 
     /**
-     * TÄMÄ JÄI KORJATTAVAKSI KATSO ETTÄ TULOSTUS TULEE OIKEIN
-     * TÄÄLLÄ JA DATABASEHELPERISSÄ!!
-     * @return
+     * Palauttaa väyläkohtaiset tulokset tekstimuodossa.
+     * @return Tekstimuotoon muutettu tulosMalli.
      */
     @Override
     public String toString() {
@@ -32,16 +31,6 @@ public class tulosModel {
                 ", Lyönnit " + lyonnitYht;
     }
 
-
-//        return "tulosModel{" +
-//                "vayla1=" + vayla1 +
-//                ", vayla2=" + vayla2 +
-//                ", vayla3=" + vayla3 +
-//                ", tulosPariin=" + tulosPariin +
-//                ", lyonnitYht=" + lyonnitYht +
-//                ", kierrosID=" + kierrosID +
-//                '}';
-//    }
 
     public tulosModel() {
     }

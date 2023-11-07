@@ -8,15 +8,14 @@
     tools:context=".MainActivity">
 
 
-
-
-
     <TextView
         android:id="@+id/textView"
-        android:layout_width="202dp"
-        android:layout_height="64dp"
+        android:layout_width="260dp"
+        android:layout_height="63dp"
         android:fontFamily="sans-serif-black"
         android:text="Golf-Klubben"
+        android:textSize="40sp"
+        android:background="#80A9A9A9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
