@@ -190,9 +190,6 @@ public class pelaaGolfia extends Activity {
         }
         parLaskuri.setText("E");
         lyontiLaskuri.setText("");
-
-
-
     }
 
 

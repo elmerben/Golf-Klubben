@@ -2,9 +2,12 @@ package com.laskin.app;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -24,9 +27,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class kierrosTarkastelu extends Activity {
@@ -48,6 +53,9 @@ public class kierrosTarkastelu extends Activity {
         setContentView(R.layout.vanhat_kierrokset);
         listView = findViewById(R.id.kierrosLista);
         painike = findViewById(R.id.painikeKierros);
+        pelaajaArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<tulosModel>());
+        listView = findViewById(R.id.kierrosLista);
+        listView.setAdapter(pelaajaArrayAdapter);
         kierrosLista();
 
         painike.setOnClickListener(new View.OnClickListener() {
@@ -57,30 +65,48 @@ public class kierrosTarkastelu extends Activity {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                tulosModel clickedTulos = (tulosModel) parent.getItemAtPosition(position);
+                DataBaseHelper dbHelper = new DataBaseHelper(kierrosTarkastelu.this);
+                boolean poistettu = dbHelper.deleteOne(clickedTulos);
+
+                if (poistettu) {
+                    kierrosLista();
+
+
+                    // Näytä ilmoitus poistamisesta
+                    Toast.makeText(kierrosTarkastelu.this, "Poistettu " + clickedTulos.toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    // Näytä ilmoitus, jos poistaminen epäonnistui
+                    Toast.makeText(kierrosTarkastelu.this, "Tuloksen poistaminen epäonnistui.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
+            /**
+             * Käsittelee "Palaa"-painikkeen toiminnallisuuden
+             */
+            private void handlePalaa() {
+                if (!peruutaKaynnissa) {
+                    peruutaKaynnissa = true;
+                }
+                finish();
+            }
 
-    /**
-     * Käsittelee "Palaa"-painikkeen toiminnallisuuden
-     */
-    private void handlePalaa() {
-        if (!peruutaKaynnissa) {
-            peruutaKaynnissa = true;
+            /**
+            * Näyttää pelatut kierrokset listana.
+            */
+            public void kierrosLista() {
+                DataBaseHelper db = new DataBaseHelper(kierrosTarkastelu.this);
+                List<tulosModel> kaikki = db.listaaKaikki();
+                pelaajaArrayAdapter.clear();
+                pelaajaArrayAdapter.addAll(kaikki);
+                pelaajaArrayAdapter.notifyDataSetChanged();
+                listView.setAdapter(pelaajaArrayAdapter);
+            }
+
         }
-        finish();
-    }
 
-    /**
-     * Näyttää pelatut kierrokset listana.
-     */
-    public void kierrosLista(){
-        DataBaseHelper dataBaseHelper = new DataBaseHelper((kierrosTarkastelu.this));
-        List<tulosModel> kaikki = dataBaseHelper.listaaKaikki();
-        pelaajaArrayAdapter = new ArrayAdapter<tulosModel>(kierrosTarkastelu.this, android.R.layout.simple_list_item_1, kaikki);
-        listView.setAdapter(pelaajaArrayAdapter);
-
-    }
-
-
-
-}

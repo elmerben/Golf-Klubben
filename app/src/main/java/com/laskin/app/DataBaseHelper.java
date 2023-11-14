@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +29,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * Luo uuden tietokanta-apurin DataBaseHelper sovellukselle.
      */
     public DataBaseHelper(@Nullable Context context) {
-        super(context, "tulokset.db" , null, 1);
+        super(context, "tulokset.db", null, 1);
     }
 
 
     /**
      * Metodia kutsutaan tietokantaa käytettäessä ensimmäistä kertaa.
      * Metodi sisältää koodin uuden tietokannan luomiselle ja taulujen määrittelylle.
+     *
      * @param db SQLiteDatabase-objekti, joka mahdollistaa tietokannan käsittelyn.
      */
     @Override
@@ -47,21 +52,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 " INT, " + COLUMN_KIERROSID + " INT)";
         db.execSQL(createTableStatement);
 
-
-
     }
 
     /**
      * Metodia kutsutaan, jos tietokannan versio muuttuu.
      * Tarkoitus estää aiempien käyttäjien sovellusten hajoaminen
      * tietokannan suunnittelua muuttaessa.
+     *
      * @param sqLiteDatabase - SQLiteDatabase - objekti
-     * @param i - Vanhan tietokannan versio
-     * @param i1 - Uuden tietokannan versio
+     * @param i              - Vanhan tietokannan versio
+     * @param i1             - Uuden tietokannan versio
      */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    }
+
+    public Boolean deleteOne(tulosModel tulosModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " + KIERROS_TULOS + " WHERE " + COLUMN_KIERROSID + " = ?";
+        try {
+            db.execSQL(queryString, new String[]{String.valueOf(tulosModel.getKierrosID())});
+            return true;
+        } catch (Exception e) {
+            Log.e("DatabaseError", "Poisto epäonnistui", e);
+            return false;
+        } finally {
+            db.close();
+        }
     }
 
     /**
@@ -77,6 +95,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_LYONNIT_3, tulosModel.getVayla3());
         cv.put(COLUMN_PARTULOS, tulosModel.getTulosPariin());
         cv.put(COLUMN_KOKONAISLYONNIT, tulosModel.getLyonnitYht());
+        cv.put(COLUMN_KIERROSID, tulosModel.getKierrosID());
 
         long insert = db.insert(KIERROS_TULOS, null, cv);
         if (insert == -1) {
@@ -88,15 +107,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-
-
     /**
      * Hakee golfkierrosten tulokset tietokannasta ja palauttaa ne listana.
      * @return List<tulosModel> -Lista kierrostuloksista.
      */
     public List<tulosModel> listaaKaikki() {
         List<tulosModel> palautaLista = new ArrayList<>();
-        //String queryString = "SELECT * FROM " + KIERROS_TULOS;
         String queryString = "SELECT " + COLUMN_LYONNIT_1 + ", " +
                 COLUMN_LYONNIT_2 + ", " +
                 COLUMN_LYONNIT_3 + ", " +
@@ -110,7 +126,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-
                 int lyonnit1 = cursor.getInt(0);
                 int lyonnit2 = cursor.getInt(1);
                 int lyonnit3 = cursor.getInt(2);
@@ -123,7 +138,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         else {
-
         }
         cursor.close();
         db.close();
@@ -131,6 +145,5 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return palautaLista;
 
     }
-
 
 }

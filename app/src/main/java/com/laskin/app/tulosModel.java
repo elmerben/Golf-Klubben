@@ -15,7 +15,6 @@ public class tulosModel {
         this.tulosPariin = tulosPariin;
         this.lyonnitYht = lyonnitYht;
         this.kierrosID = kierrosID;
-       // this.dataBaseHelper = dataBaseHelper;
     }
 
     /**
@@ -29,6 +28,7 @@ public class tulosModel {
                 " Väylä 3: " + vayla3 +
                 ": Par " + tulosPariin +
                 ", Lyönnit " + lyonnitYht;
+
     }
 
 
