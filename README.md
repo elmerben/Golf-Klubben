@@ -1,4 +1,4 @@
-# Golf-Klubben v. 1.02
+# Golf-Klubben 
 
 # Golf Score Tracker and Analysis App 🏌️‍♂️⛳️
 
@@ -17,6 +17,10 @@ Welcome to the Golf-Klubben app! The purpose of this application is to allow the
 
 ## Important information
 - The application is still in the development phase, and for this reason, at this point, you can only save par-3 results. Additional features will be added as the project progresses.
+
+## List Of Updates
+- 14.11.23: Added round deletion feature
+
 
 ## Contact
 
