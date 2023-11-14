@@ -19,7 +19,7 @@ Welcome to the Golf-Klubben app! The purpose of this application is to allow the
 - The application is still in the development phase, and for this reason, at this point, you can only save par-3 results. Additional features will be added as the project progresses.
 
 ## List Of Updates
-- 14.11.23: Added round deletion feature
+- 14.11.23: Added round deletion feature.
 
 
 ## Contact
